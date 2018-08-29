@@ -1,12 +1,81 @@
 package com.caucaragp.worldskills.emparejapp;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
+import android.widget.Button;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Splash extends AppCompatActivity {
+
+    Button btnFace;
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_splash);
+
+       // inicializar();
+       // keyHash();
+       // compartirFacebook();
+
+    }
+
+    private void compartirFacebook() {
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setQuote("Prueba texto")
+                .setContentUrl(Uri.parse("https://www.google.ca/")).build();
+
+        if (shareDialog.canShow(ShareLinkContent.class)){
+
+            shareDialog.show(content);
+        }
+
+    }
+
+    //Referenciamos los campos que vamos a utilizar
+    private void inicializar() {
+
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+        btnFace = findViewById(R.id.btnFace);
+    }
+
+    //Mentodo el cual nos ayuda a obtener la KeyHash para la api de Facebook
+    private void keyHash() {
+
+        try {
+
+            PackageInfo info = getPackageManager().getPackageInfo("com.caucaragp.worldskills.emparejapp", PackageManager.GET_SIGNATURES);
+
+            for (Signature signature : info.signatures){
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+
+            }
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
     }
 }
