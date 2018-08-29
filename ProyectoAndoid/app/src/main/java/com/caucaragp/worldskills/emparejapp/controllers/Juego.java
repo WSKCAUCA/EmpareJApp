@@ -274,7 +274,27 @@ public class Juego extends AppCompatActivity {
             TextView txtPuntajeJ2 = dialog.findViewById(R.id.txtPuntaje2R);
             TextView txtTiempoR = dialog.findViewById(R.id.txtTiempoR);
             Button btnContinuar = dialog.findViewById(R.id.btnContinuar);
+            Button btnFace = dialog.findViewById(R.id.btnFace);
+            Button btnTwi = dialog.findViewById(R.id.btnTwi);
 
+            String dificultad="";
+
+            if (nivel==4){
+                dificultad= getString(R.string.facil);
+            }
+
+            if (nivel==6){
+                dificultad= getString(R.string.medio);
+            }
+
+            if (nivel==8){
+                dificultad= getString(R.string.dificil);
+            }
+
+            final String messege = Inicio.jugador1+" puntaje: "+puntuacion1+"\n"+
+                    Inicio.jugador2+" puntaje: "+puntuacion2+"\n"+
+                    "Dificultad: "+dificultad+ "\n "+
+                    txtTiempo.getText().toString();
             txtNombreJ1.setText(txtJugador1.getText().toString());
             txtNombreJ2.setText(txtJugador2.getText().toString());
             txtPuntajeJ1.setText(txtPuntaje1.getText().toString());
@@ -286,6 +306,44 @@ public class Juego extends AppCompatActivity {
                 public void onClick(View v) {
                     finish();
                     dialog.cancel();
+                }
+            });
+
+            btnFace.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ShareLinkContent content = new ShareLinkContent.Builder()
+                            .setQuote(messege)
+                            .setContentUrl(Uri.parse("https://www.google.ca/")).build();
+
+                    if (shareDialog.canShow(ShareLinkContent.class)){
+
+                        shareDialog.show(content);
+                    }
+                    finish();
+                }
+            });
+
+            btnTwi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.setPackage("com.twitter.android");
+                    intent.putExtra(Intent.EXTRA_TEXT, messege);
+
+                    try {
+
+                        startActivity(intent);
+
+                    }catch (Exception e){
+
+                        Toast.makeText(Juego.this, "No cuentas con está app", Toast.LENGTH_SHORT).show();
+
+                    }
+
+
                 }
             });
 

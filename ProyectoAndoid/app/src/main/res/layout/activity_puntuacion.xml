@@ -21,14 +21,17 @@
 
 
         <RadioButton
+            android:id="@+id/rbtnFacil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
+            android:checked="true"
             android:text="@string/facil"
             android:textColor="@color/azulclaro"
             android:textSize="18sp" />
 
         <RadioButton
+            android:id="@+id/rbtnMedio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
@@ -37,6 +40,7 @@
             android:textSize="18sp" />
 
         <RadioButton
+            android:id="@+id/rbtnDificil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dificil"
@@ -47,7 +51,7 @@
 
 
     <TextView
-        android:id="@+id/txtprimero"
+        android:id="@+id/txtPrimero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
@@ -57,34 +61,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtsegundo"
+        android:id="@+id/txtSegundo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginTop="24dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtprimero" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPrimero" />
 
     <TextView
-        android:id="@+id/txttercero"
+        android:id="@+id/txtTercero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginTop="30dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtsegundo" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSegundo" />
 
     <TextView
-        android:id="@+id/txtcuarto"
+        android:id="@+id/txtCuarto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginTop="33dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txttercero" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTercero" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -93,7 +97,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="224dp"
-        app:layout_constraintEnd_toStartOf="@+id/txtprimero"
+        app:layout_constraintEnd_toStartOf="@+id/txtPrimero"
         app:layout_constraintHorizontal_bias="0.87"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -106,7 +110,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="9dp"
-        app:layout_constraintEnd_toStartOf="@+id/txtsegundo"
+        app:layout_constraintEnd_toStartOf="@+id/txtSegundo"
         app:layout_constraintHorizontal_bias="0.87"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
@@ -119,7 +123,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="7dp"
-        app:layout_constraintEnd_toStartOf="@+id/txttercero"
+        app:layout_constraintEnd_toStartOf="@+id/txtTercero"
         app:layout_constraintHorizontal_bias="0.87"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
@@ -132,7 +136,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/txtcuarto"
+        app:layout_constraintEnd_toStartOf="@+id/txtCuarto"
         app:layout_constraintHorizontal_bias="0.87"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7"
