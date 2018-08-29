@@ -3,7 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/fondoconfiguracion"
     android:layout_height="match_parent"
     tools:context=".controllers.Configuracion">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="164dp"
+        android:text="@string/configuracion"
+        android:textColor="@color/rosado"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <RadioButton
+            android:id="@+id/btnSinTiempo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sin tiempo límite"
+            android:textColor="@color/azulclaro" />
+
+        <RadioButton
+            android:id="@+id/btnConTiempo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Con tiempo límite"
+            android:textColor="@color/azulclaro" />
+
+    </RadioGroup>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="255dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
+        app:layout_constraintVertical_bias="0.112">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tiempo en segundos" />
+    </android.support.design.widget.TextInputLayout>
 
 </android.support.constraint.ConstraintLayout>
