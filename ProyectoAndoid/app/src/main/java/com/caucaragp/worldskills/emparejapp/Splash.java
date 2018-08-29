@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 
+import com.caucaragp.worldskills.emparejapp.controllers.Inicio;
 import com.caucaragp.worldskills.emparejapp.controllers.Menu;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -44,7 +45,7 @@ public class Splash extends AppCompatActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(Splash.this, Menu.class);
+                Intent intent = new Intent(Splash.this, Inicio.class);
                 startActivity(intent);
                 finish();
             }

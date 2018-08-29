@@ -6,4 +6,5 @@
     <string name="jugar">Jugar</string>
     <string name="puntuacion">Puntuación</string>
     <string name="configuracion">Configuración</string>
+    <string name="continuar">Continuar</string>
 </resources>
