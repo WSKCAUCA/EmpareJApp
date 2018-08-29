@@ -2,6 +2,7 @@ package com.caucaragp.worldskills.emparejapp.controllers;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 
 import com.caucaragp.worldskills.emparejapp.R;
 import com.caucaragp.worldskills.emparejapp.models.AdapterJ;
+import com.caucaragp.worldskills.emparejapp.models.GestorDB;
+import com.caucaragp.worldskills.emparejapp.models.Score;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +37,7 @@ public class Juego extends AppCompatActivity {
     private int [] imagenesFondo, imagenesAleatorias;
     private List<Integer> imagenesSelect = new ArrayList<>();
     int movimientos, pos1=-1, pos2=-1, canselect, nivel, salir, item, columnas, tiempo;
-    int inicioJuego, modoJuego, puntacion1, puntuacion2, ab=0;
+    int inicioJuego, modoJuego, puntuacion1, puntuacion2, ab=0;
     boolean bandera = true, bandera1=true;
     TextView txtJugador1, txtJugador2, txtPuntaje1, txtPuntaje2, txtTiempo;
     ProgressBar pTiempo;
@@ -74,19 +78,19 @@ public class Juego extends AppCompatActivity {
     //Método para ingresar variables a los campos de texto, definir el nivel, definir el modo de juego y otros
     private void inputValues() {
         juegoC = getSharedPreferences("juegoC",MODE_PRIVATE);
-        nivel = 8;//por ahora
+        nivel = Menu.nivel;
         modoJuego = juegoC.getInt("modo",1);
         ab=0;
 
         if (modoJuego==1) {
             tiempo=30;
-            segundos= new int[]{0};
+            segundos= new int[]{0,0};
             txtTiempo.setText("Tiempo gastado: "+segundos[0]);
             pTiempo.setMax(tiempo);
             pTiempo.setProgress(segundos[0]);
         }else {
             tiempo = juegoC.getInt("tiempo",30);
-            segundos= new int[]{tiempo};
+            segundos= new int[]{tiempo,0};
             txtTiempo.setText("Tiempo restante: "+segundos[0]);
             pTiempo.setMax(tiempo);
             pTiempo.setProgress(segundos[0]);
@@ -95,6 +99,8 @@ public class Juego extends AppCompatActivity {
         txtJugador1.setText("");//por ahora
         txtJugador2.setText("");//por ahora
         salir = nivel;
+        puntuacion1 = 0;
+        puntuacion2 = 0;
 
 
 
@@ -120,14 +126,34 @@ public class Juego extends AppCompatActivity {
     private void turns() {
         inicioJuego  = (int) (Math.random() * 2)+1;
         if (inicioJuego==1){
-            txtJugador1.setTextColor(getColor(R.color.colorNegro));
-            txtJugador2.setTextColor(getColor(R.color.colorGris));
+            colorearAJugador1();
             Toast.makeText(this, "Empieza Jugador 1", Toast.LENGTH_SHORT).show();//Por ahora
         }else {
-            txtJugador1.setTextColor(getColor(R.color.colorNegro));
-            txtJugador2.setTextColor(getColor(R.color.colorGris));
+            colorearAJugador2();
             Toast.makeText(this, "Empieza Jugador 2", Toast.LENGTH_SHORT).show();//Por ahora
         }
+    }
+
+    //Método para colorear de negro al jugador 1 cuando es su turno y descolorear al otro porque no es su turno
+    private void colorearAJugador1(){
+        txtJugador1.setTextColor(getColor(R.color.colorNegro));
+        txtJugador2.setTextColor(getColor(R.color.colorGris));
+        txtPuntaje1.setTextColor(getColor(R.color.colorNegro));
+        txtPuntaje2.setTextColor(getColor(R.color.colorGris));
+    }
+
+    //Método para colorear de negro al jugador 2 cuando es su turno y descolorear al otro porque no es su turno
+    private void colorearAJugador2(){
+        txtJugador2.setTextColor(getColor(R.color.colorNegro));
+        txtJugador1.setTextColor(getColor(R.color.colorGris));
+        txtPuntaje2.setTextColor(getColor(R.color.colorNegro));
+        txtPuntaje1.setTextColor(getColor(R.color.colorGris));
+    }
+
+    //Método para ingresar los puntajes a su respectivas vistas
+    private void inputPoints(){
+        txtPuntaje1.setText(Integer.toString(puntuacion1));
+        txtPuntaje2.setText(Integer.toString(puntuacion2));
     }
 
     //Método que da inicio a otros métodos para iniciar el juego
@@ -220,7 +246,6 @@ public class Juego extends AppCompatActivity {
             bandera=false;
             bandera1=false;
 
-
         }
     }
 
@@ -235,7 +260,7 @@ public class Juego extends AppCompatActivity {
             @Override
             public void itemClick(int position, ImageView imageView, View itemView) {
                 canselect++;
-                if (pos1!=position || pos2!=position){
+                if (pos1==position || pos2==position){
                     canselect--;
                 }
 
@@ -293,7 +318,7 @@ public class Juego extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try{
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -333,11 +358,133 @@ public class Juego extends AppCompatActivity {
 
                     }
                 });
+
+                animator1.start();animator2.start();
                 win.start();
                 salir--;
 
+                if (inicioJuego==1){
+                    puntuacion1+=100;
+                    inputPoints();
+                }else {
+                    puntuacion2+=100;
+                    inputPoints();
+                }
+
+                //Validación que nos permite mostrar resumen y guardar en base de datos los datos del juego si está en modo sin tiempo
+                if (salir==0){
+                    win.stop();
+                    end.start();
+                    bandera=false;
+                    bandera1=false;
+
+                    if (modoJuego==1){
+                        Score score1 = new Score();
+                        Score score2 = new Score();
+
+                        
+                        score1.setPuntaje(puntuacion1);
+                        score1.setNivel(nivel);
+                        score2.setPuntaje(puntuacion2);
+                        score2.setNivel(nivel);
+
+                        GestorDB gestorDB = new GestorDB(Juego.this);
+                        gestorDB.insertScore(score1);
+                        gestorDB.insertScore(score2);
+                    }
+
+                    final Dialog dialog = new Dialog(Juego.this);
+                    dialog.setContentView(R.layout.item_nivel);
+                    TextView txtNombreJ1 = dialog.findViewById(R.id.txtJugador1R);
+                    TextView txtNombreJ2 = dialog.findViewById(R.id.txtJugador2R);
+                    TextView txtPuntajeJ1 = dialog.findViewById(R.id.txtPuntaje1R);
+                    TextView txtPuntajeJ2 = dialog.findViewById(R.id.txtPuntaje2R);
+                    TextView txtTiempoR = dialog.findViewById(R.id.txtTiempoR);
+                    Button btnContinuar = dialog.findViewById(R.id.btnContinuar);
+
+                    txtNombreJ1.setText(txtNombreJ1.getText().toString());
+                    txtNombreJ2.setText(txtNombreJ2.getText().toString());
+                    txtPuntajeJ1.setText(txtNombreJ1.getText().toString());
+                    txtPuntajeJ2.setText(txtNombreJ2.getText().toString());
+                    txtTiempoR.setText(txtTiempo.getText().toString());
+                    btnContinuar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                            dialog.cancel();
+                        }
+                    });
+
+                    dialog.show();
+
+
+                }
+
+
+
 
             }else {
+                BitmapFactory.Options op = new BitmapFactory.Options();
+                op.inSampleSize=1;
+                final Bitmap bitmap = BitmapFactory.decodeResource(getResources(),fondoJuego,op);
+                animator1 = ViewAnimationUtils.createCircularReveal(imagen1,imagen1.getHeight()/2,imagen1.getHeight()/2,imagen1.getHeight(),0);
+                animator1.setDuration(300);
+                animator1.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        Animator animator = ViewAnimationUtils.createCircularReveal(imagen1,0,imagen1.getHeight(), imagen1.getHeight()*1.5f,0);
+                        animator.setDuration(400);
+                        animator.start();
+                    }
+                });
+
+
+                animator2 = ViewAnimationUtils.createCircularReveal(imagen2,imagen2.getHeight()/2,imagen2.getHeight()/2,imagen2.getHeight(),0);
+                animator2.setDuration(300);
+                animator2.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        Animator animator = ViewAnimationUtils.createCircularReveal(imagen2,0,imagen2.getHeight(), imagen2.getHeight()*1.5f,0);
+                        animator.setDuration(400);
+                        animator.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                imagen1.setImageBitmap(bitmap);
+                                imagen2.setImageBitmap(bitmap);
+                                item1.setEnabled(true);
+                                item2.setEnabled(true);
+                                canselect=0;
+                                pos1=-1;
+                                pos2=-1;
+                                AdapterJ.bandera=true;
+                            }
+                        });
+                        animator.start();
+                    }
+                });
+
+                animator1.start();animator2.start();
+
+                lose.start();
+
+                if (inicioJuego==1){
+                    if (puntuacion1>0) {
+                        puntuacion1 -= 2;
+                        inputPoints();
+                    }
+                }else {
+                    if (puntuacion2>0) {
+                        puntuacion2 -= 2;
+                        inputPoints();
+                    }
+                }
+
+                
+
+
 
             }
 

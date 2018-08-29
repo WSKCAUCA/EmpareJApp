@@ -2,8 +2,12 @@
     <string name="app_name">EmpareJApp</string>
     <string name="facebook_app_id">294050781325171</string>
     <string name="facebook_login_protocol_scheme">fb294050781325171</string>
-
     <string name="jugar">Jugar</string>
     <string name="puntuacion">Puntuación</string>
     <string name="configuracion">Configuración</string>
+    <string name="juegoterminado">Juego Terminado</string>
+    <string name="facil">Fácil</string>
+    <string name="medio">Medio</string>
+    <string name="dificil">Difícil</string>
+    <string name="empezar">Empezar</string>
 </resources>
