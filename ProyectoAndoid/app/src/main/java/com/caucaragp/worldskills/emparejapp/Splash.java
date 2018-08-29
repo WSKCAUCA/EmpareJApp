@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 
+import com.caucaragp.worldskills.emparejapp.controllers.Menu;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareHashtag;
@@ -27,7 +28,6 @@ import java.util.TimerTask;
 
 public class Splash extends AppCompatActivity {
 
-    Button btnFace;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
@@ -39,6 +39,19 @@ public class Splash extends AppCompatActivity {
        // inicializar();
        // keyHash();
        // compartirFacebook();
+
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Splash.this, Menu.class);
+                startActivity(intent);
+                finish();
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(timerTask,2000);
 
     }
 
@@ -59,7 +72,7 @@ public class Splash extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
-        btnFace = findViewById(R.id.btnFace);
+
     }
 
     //Mentodo el cual nos ayuda a obtener la KeyHash para la api de Facebook
@@ -82,16 +95,5 @@ public class Splash extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(Splash.this, Juego.class);
-                startActivity(intent);
-                finish();
-            }
-        };
-
-        Timer timer = new Timer();
-        timer.schedule(timerTask,2000);
     }
 }
