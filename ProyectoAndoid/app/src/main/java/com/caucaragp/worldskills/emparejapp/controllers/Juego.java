@@ -433,7 +433,8 @@ public class Juego extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        Animator animator = ViewAnimationUtils.createCircularReveal(imagen1,0,imagen1.getHeight(), imagen1.getHeight()*1.5f,0);
+                        imagen1.setImageBitmap(bitmap);
+                        Animator animator = ViewAnimationUtils.createCircularReveal(imagen1,0,imagen1.getHeight(), 0,imagen1.getHeight()*1.5f);
                         animator.setDuration(400);
                         animator.start();
                     }
@@ -446,14 +447,15 @@ public class Juego extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        Animator animator = ViewAnimationUtils.createCircularReveal(imagen2,0,imagen2.getHeight(), imagen2.getHeight()*1.5f,0);
+                        imagen2.setImageBitmap(bitmap);
+
+                        Animator animator = ViewAnimationUtils.createCircularReveal(imagen2,0,imagen2.getHeight(), 0,imagen2.getHeight()*1.5f);
                         animator.setDuration(400);
                         animator.addListener(new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 super.onAnimationEnd(animation);
-                                imagen1.setImageBitmap(bitmap);
-                                imagen2.setImageBitmap(bitmap);
+
                                 item1.setEnabled(true);
                                 item2.setEnabled(true);
                                 canselect=0;
@@ -475,14 +477,19 @@ public class Juego extends AppCompatActivity {
                         puntuacion1 -= 2;
                         inputPoints();
                     }
+                    inicioJuego=2;
+                    colorearAJugador2();
                 }else {
                     if (puntuacion2>0) {
                         puntuacion2 -= 2;
                         inputPoints();
                     }
+                    inicioJuego=1;
+                    colorearAJugador1();
                 }
 
-                
+
+
 
 
 
