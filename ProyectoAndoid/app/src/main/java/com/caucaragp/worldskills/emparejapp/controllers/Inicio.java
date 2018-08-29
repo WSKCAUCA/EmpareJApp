@@ -43,6 +43,7 @@ public class Inicio extends AppCompatActivity {
                 if (jugador1.length()>0 && jugador2.length()>0){
                     Intent intent = new Intent(Inicio.this, Menu.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     Toast.makeText(Inicio.this, "No puedes entrar al menu porque alguno de los campos esta vacio", Toast.LENGTH_SHORT).show();
                     if (jugador1.length()<0){

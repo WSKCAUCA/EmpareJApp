@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,33 +27,46 @@ import com.caucaragp.worldskills.emparejapp.R;
 import com.caucaragp.worldskills.emparejapp.models.AdapterJ;
 import com.caucaragp.worldskills.emparejapp.models.GestorDB;
 import com.caucaragp.worldskills.emparejapp.models.Score;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Juego extends AppCompatActivity {
     //Declaración de variables
-    private int fondoJuego = R.drawable.cartel;
+    private int fondoJuego = R.drawable.fondoboton;
     private int [] imagenesJuego ={R.drawable.butters, R.drawable.cartman, R.drawable.craig,
             R.drawable.jimmy, R.drawable.kenny, R.drawable.kyle, R.drawable.stan, R.drawable.wendy,
     };
     private int [] imagenesFondo, imagenesAleatorias;
     private List<Integer> imagenesSelect = new ArrayList<>();
-    int movimientos, pos1=-1, pos2=-1, canselect, nivel, salir, item, columnas, tiempo;
-    int inicioJuego, modoJuego, puntuacion1, puntuacion2, ab=0;
+
+    int movimientos, pos1=-1, pos2=-1, canselect, nivel, salir, item, columnas, tiempo, inicioJuego, modoJuego, puntuacion1, puntuacion2, ab=0;
     boolean bandera = true, bandera1=true;
+
     TextView txtJugador1, txtJugador2, txtPuntaje1, txtPuntaje2, txtTiempo;
     ProgressBar pTiempo;
     RecyclerView contenedorJuego;
+
     ImageView imagen1, imagen2;
     View item1, item2;
+
     int [] segundos;
+
     SharedPreferences juegoC;
+
     Animator animator1, animator2;
     MediaPlayer win,lose,end;
+
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_juego);
         inizialite();
         inputValues();
@@ -63,6 +77,9 @@ public class Juego extends AppCompatActivity {
 
     //Método para inicializar las vistas e inizializar los MediaPlayer
     private void inizialite() {
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+
         txtJugador1 = findViewById(R.id.txtJugador1);
         txtJugador2 = findViewById(R.id.txtJugador2);
         txtPuntaje1 = findViewById(R.id.txtPuntaje1);
@@ -428,7 +445,27 @@ public class Juego extends AppCompatActivity {
                     TextView txtPuntajeJ2 = dialog.findViewById(R.id.txtPuntaje2R);
                     TextView txtTiempoR = dialog.findViewById(R.id.txtTiempoR);
                     Button btnContinuar = dialog.findViewById(R.id.btnContinuar);
+                    Button btnFace = dialog.findViewById(R.id.btnFace);
+                    Button btnTwi = dialog.findViewById(R.id.btnTwi);
 
+                    String dificultad="";
+
+                    if (nivel==4){
+                        dificultad= getString(R.string.facil);
+                    }
+
+                    if (nivel==6){
+                        dificultad= getString(R.string.medio);
+                    }
+
+                    if (nivel==8){
+                        dificultad= getString(R.string.dificil);
+                    }
+
+                    final String messege = Inicio.jugador1+" puntaje: "+puntuacion1+"\n"+
+                                    Inicio.jugador2+" puntaje: "+puntuacion2+"\n"+
+                            "Dificultad: "+dificultad+ "\n"+
+                            txtTiempo.getText();
                     txtNombreJ1.setText(txtJugador1.getText().toString());
                     txtNombreJ2.setText(txtJugador2.getText().toString());
                     txtPuntajeJ1.setText(txtPuntaje1.getText().toString());
@@ -443,6 +480,27 @@ public class Juego extends AppCompatActivity {
                         }
                     });
 
+                    btnFace.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ShareLinkContent content = new ShareLinkContent.Builder()
+                                    .setQuote(messege)
+                                    .setContentUrl(Uri.parse("https://www.google.ca/")).build();
+
+                            if (shareDialog.canShow(ShareLinkContent.class)){
+
+                                shareDialog.show(content);
+                            }
+                        }
+                    });
+
+                    btnTwi.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            
+                        }
+                    });
+
                     dialog.show();
 
 
@@ -453,7 +511,7 @@ public class Juego extends AppCompatActivity {
 
             }else {
                 BitmapFactory.Options op = new BitmapFactory.Options();
-                op.inSampleSize=1;
+                op.inSampleSize=2;
                 final Bitmap bitmap = BitmapFactory.decodeResource(getResources(),fondoJuego,op);
                 animator1 = ViewAnimationUtils.createCircularReveal(imagen1,imagen1.getHeight()/2,imagen1.getHeight()/2,imagen1.getHeight(),0);
                 animator1.setDuration(300);

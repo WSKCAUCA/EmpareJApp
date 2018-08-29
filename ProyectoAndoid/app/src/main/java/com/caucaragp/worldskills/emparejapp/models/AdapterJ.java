@@ -74,7 +74,7 @@ public class AdapterJ extends RecyclerView.Adapter<AdapterJ.Holder>{
         //Método para conectar los datos dados por el constructor del AdapterJ a el imgItem
         public void connectData(int imagen){
             BitmapFactory.Options op = new BitmapFactory.Options();
-            op.inSampleSize=1;
+            op.inSampleSize=2;
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imagen,op);
             imgItem.setImageBitmap(bitmap);
 
