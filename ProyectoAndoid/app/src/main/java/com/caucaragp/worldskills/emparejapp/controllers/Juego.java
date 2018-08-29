@@ -3,6 +3,7 @@ package com.caucaragp.worldskills.emparejapp.controllers;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -464,8 +465,8 @@ public class Juego extends AppCompatActivity {
 
                     final String messege = Inicio.jugador1+" puntaje: "+puntuacion1+"\n"+
                                     Inicio.jugador2+" puntaje: "+puntuacion2+"\n"+
-                            "Dificultad: "+dificultad+ "\n"+
-                            txtTiempo.getText();
+                            "Dificultad: "+dificultad+ "\n "+
+                            txtTiempo.getText().toString();
                     txtNombreJ1.setText(txtJugador1.getText().toString());
                     txtNombreJ2.setText(txtJugador2.getText().toString());
                     txtPuntajeJ1.setText(txtPuntaje1.getText().toString());
@@ -491,12 +492,29 @@ public class Juego extends AppCompatActivity {
 
                                 shareDialog.show(content);
                             }
+                            finish();
                         }
                     });
 
                     btnTwi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            Intent intent = new Intent(Intent.ACTION_SEND);
+                            intent.setType("text/plain");
+                            intent.setPackage("com.twitter.android");
+                            intent.putExtra(Intent.EXTRA_TEXT, messege);
+
+                            try {
+
+                                startActivity(intent);
+
+                            }catch (Exception e){
+
+                                Toast.makeText(Juego.this, "No cuentas con está app", Toast.LENGTH_SHORT).show();
+
+                            }
+
                             
                         }
                     });

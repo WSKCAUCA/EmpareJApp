@@ -7,4 +7,129 @@
     android:layout_height="match_parent"
     tools:context=".controllers.Puntuacion">
 
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="156dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/facil"
+            android:textColor="@color/azulclaro" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/medio"
+            android:textColor="@color/azulclaro" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dificil"
+            android:textColor="@color/azulclaro" />
+
+    </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/txtprimero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="148dp"
+        android:layout_marginTop="232dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtsegundo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="148dp"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtprimero" />
+
+    <TextView
+        android:id="@+id/txttercero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="148dp"
+        android:layout_marginTop="30dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtsegundo" />
+
+    <TextView
+        android:id="@+id/txtcuarto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="148dp"
+        android:layout_marginTop="33dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txttercero" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="30dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="224dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtprimero"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/puntuiacionoro" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="30dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="9dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtsegundo"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:srcCompat="@drawable/puntuacionplata" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="30dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        app:layout_constraintEnd_toStartOf="@+id/txttercero"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:srcCompat="@drawable/puntuacionbronce" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="30dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtcuarto"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7"
+        app:srcCompat="@drawable/puntuacioncuarto" />
 </android.support.constraint.ConstraintLayout>
