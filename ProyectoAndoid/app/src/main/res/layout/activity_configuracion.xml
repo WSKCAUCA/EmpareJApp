@@ -38,6 +38,7 @@
             android:id="@+id/btnSinTiempo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Sin tiempo límite"
             android:textColor="@color/azulclaro" />
 
@@ -51,6 +52,7 @@
     </RadioGroup>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout3"
         android:layout_width="255dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
@@ -65,9 +67,27 @@
         app:layout_constraintVertical_bias="0.112">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/txtTiempo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tiempo en segundos" />
+            android:enabled="false"
+            android:hint="Tiempo en segundos"
+            android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnContinuar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/continuar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+        app:layout_constraintVertical_bias="0.9" />
 
 </android.support.constraint.ConstraintLayout>

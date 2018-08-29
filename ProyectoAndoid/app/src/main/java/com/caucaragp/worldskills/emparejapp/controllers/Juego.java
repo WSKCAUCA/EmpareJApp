@@ -241,15 +241,20 @@ public class Juego extends AppCompatActivity {
                             if (bandera1){
                                 if (modoJuego==1){
                                     segundos[0]++;
+                                    segundos[1]++;
                                     txtTiempo.setText("Tiempo gastado: "+segundos[0]);
                                     pTiempo.setMax(tiempo);
-                                    pTiempo.setProgress(segundos[0]);
+                                    pTiempo.setProgress(segundos[1]);
+                                    if (segundos[1]==30){
+                                      segundos[1]=0;
+                                    }
                                 }else {
                                     segundos[0]--;
                                     txtTiempo.setText("Tiempo restante: "+segundos[0]);
                                     pTiempo.setMax(tiempo);
                                     pTiempo.setProgress(segundos[0]);
                                     endGame();
+
                                 }
                             }
                         }
@@ -265,6 +270,7 @@ public class Juego extends AppCompatActivity {
         if (ab==0 && segundos[0]==0){
             bandera=false;
             bandera1=false;
+            end.start();
 
             final Dialog dialog = new Dialog(Juego.this);
             dialog.setContentView(R.layout.item_resumen);
@@ -484,8 +490,9 @@ public class Juego extends AppCompatActivity {
                     if (modoJuego==1){
                         Score score1 = new Score();
                         Score score2 = new Score();
+                        score1.setJugador(Inicio.jugador1);
+                        score2.setJugador(Inicio.jugador2);
 
-                        
                         score1.setPuntaje(puntuacion1);
                         score1.setNivel(nivel);
                         score2.setPuntaje(puntuacion2);
