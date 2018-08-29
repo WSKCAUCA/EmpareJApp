@@ -27,8 +27,8 @@ public class GestorDB extends SQLiteOpenHelper {
         values.put("JUGADOR",score.getJugador());
         values.put("PUNTAJE",score.getPuntaje());
         values.put("NIVEL",score.getNivel());
-        db.close();
         db.insert("SCORE",null,values);
+        db.close();
     }
 
     //Método para listar los puntajes más altos dependiendo del valor de entrada del nivel que están registrados en la base de datos

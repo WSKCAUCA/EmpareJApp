@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -96,8 +98,8 @@ public class Juego extends AppCompatActivity {
             pTiempo.setProgress(segundos[0]);
         }
         bandera = true;
-        txtJugador1.setText("");//por ahora
-        txtJugador2.setText("");//por ahora
+        txtJugador1.setText(Inicio.jugador1);
+        txtJugador2.setText(Inicio.jugador2);
         salir = nivel;
         puntuacion1 = 0;
         puntuacion2 = 0;
@@ -245,6 +247,31 @@ public class Juego extends AppCompatActivity {
         if (ab==0 && segundos[0]==0){
             bandera=false;
             bandera1=false;
+
+            final Dialog dialog = new Dialog(Juego.this);
+            dialog.setContentView(R.layout.item_resumen);
+            TextView txtNombreJ1 = dialog.findViewById(R.id.txtJugador1R);
+            TextView txtNombreJ2 = dialog.findViewById(R.id.txtJugador2R);
+            TextView txtPuntajeJ1 = dialog.findViewById(R.id.txtPuntaje1R);
+            TextView txtPuntajeJ2 = dialog.findViewById(R.id.txtPuntaje2R);
+            TextView txtTiempoR = dialog.findViewById(R.id.txtTiempoR);
+            Button btnContinuar = dialog.findViewById(R.id.btnContinuar);
+
+            txtNombreJ1.setText(txtJugador1.getText().toString());
+            txtNombreJ2.setText(txtJugador2.getText().toString());
+            txtPuntajeJ1.setText(txtPuntaje1.getText().toString());
+            txtPuntajeJ2.setText(txtPuntaje2.getText().toString());
+            txtTiempoR.setText(txtTiempo.getText().toString());
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            btnContinuar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    dialog.cancel();
+                }
+            });
+
+            dialog.show();
 
         }
     }
@@ -394,7 +421,7 @@ public class Juego extends AppCompatActivity {
                     }
 
                     final Dialog dialog = new Dialog(Juego.this);
-                    dialog.setContentView(R.layout.item_nivel);
+                    dialog.setContentView(R.layout.item_resumen);
                     TextView txtNombreJ1 = dialog.findViewById(R.id.txtJugador1R);
                     TextView txtNombreJ2 = dialog.findViewById(R.id.txtJugador2R);
                     TextView txtPuntajeJ1 = dialog.findViewById(R.id.txtPuntaje1R);
@@ -402,11 +429,12 @@ public class Juego extends AppCompatActivity {
                     TextView txtTiempoR = dialog.findViewById(R.id.txtTiempoR);
                     Button btnContinuar = dialog.findViewById(R.id.btnContinuar);
 
-                    txtNombreJ1.setText(txtNombreJ1.getText().toString());
-                    txtNombreJ2.setText(txtNombreJ2.getText().toString());
-                    txtPuntajeJ1.setText(txtNombreJ1.getText().toString());
-                    txtPuntajeJ2.setText(txtNombreJ2.getText().toString());
+                    txtNombreJ1.setText(txtJugador1.getText().toString());
+                    txtNombreJ2.setText(txtJugador2.getText().toString());
+                    txtPuntajeJ1.setText(txtPuntaje1.getText().toString());
+                    txtPuntajeJ2.setText(txtPuntaje2.getText().toString());
                     txtTiempoR.setText(txtTiempo.getText().toString());
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     btnContinuar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
