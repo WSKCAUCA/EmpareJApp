@@ -22,14 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.Juego"></activity>
+        <activity android:name=".controllers.Juego" />
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentPrivider294050781325171"
             android:exported="true" />
 
-        <activity android:name=".controllers.Menu"></activity>
+        <activity android:name=".controllers.Menu" />
+        <activity android:name=".controllers.Inicio"></activity>
     </application>
 
 </manifest>
