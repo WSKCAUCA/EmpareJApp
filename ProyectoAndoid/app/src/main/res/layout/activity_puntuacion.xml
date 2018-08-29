@@ -9,13 +9,13 @@
 
     <RadioGroup
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
+        android:layout_height="33dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="156dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -23,20 +23,25 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
             android:text="@string/facil"
-            android:textColor="@color/azulclaro" />
+            android:textColor="@color/azulclaro"
+            android:textSize="18sp" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
             android:text="@string/medio"
-            android:textColor="@color/azulclaro" />
+            android:textColor="@color/azulclaro"
+            android:textSize="18sp" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dificil"
-            android:textColor="@color/azulclaro" />
+            android:textColor="@color/azulclaro"
+            android:textSize="18sp" />
 
     </RadioGroup>
 
