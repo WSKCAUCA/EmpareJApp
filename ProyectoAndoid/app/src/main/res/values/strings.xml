@@ -5,9 +5,11 @@
     <string name="jugar">Jugar</string>
     <string name="puntuacion">Puntuación</string>
     <string name="configuracion">Configuración</string>
+    <string name="continuar">Continuar</string>
     <string name="juegoterminado">Juego Terminado</string>
     <string name="facil">Fácil</string>
     <string name="medio">Medio</string>
     <string name="dificil">Difícil</string>
     <string name="empezar">Empezar</string>
+
 </resources>
